@@ -1,8 +1,0 @@
-/* 隐藏 Minimal 主题的顶部标题栏 */
-.site-header {
-    display: none !important;
-}
-
-/* 或者，如果只想隐藏用户名部分，尝试更具体的类名 */
-/* .site-header .user-name { display: none !important; } */
-/* .site-header .repo-name { display: none !important; } */
