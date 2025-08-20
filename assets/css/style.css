@@ -1,0 +1,4 @@
+/* 隐藏页面顶部的用户名 */
+.markdown-body > h1:first-child {
+    display: none;
+}
