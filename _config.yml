@@ -1,6 +1,0 @@
-# 如果主题支持自定义 CSS
-sass:
-  style: compressed
-
-# 告诉 Jekyll 包含你的自定义 CSS
-# 不同主题配置方式不同，Minimal 主题可能需要在 <head> 中手动引入
