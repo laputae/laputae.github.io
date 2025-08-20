@@ -1,4 +1,4 @@
-<img src="photo.jpg" alt="网站Logo" width="200" height="100" />
+<img src="logo.jpg" alt="网站Logo" width="50%" />
 I am Tao Liangce, a student. I am a Java programmer, front-end web development engineer.
 
 
