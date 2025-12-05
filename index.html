@@ -13,9 +13,18 @@
       line-height: 1.6;
       color: #333;
     }
+    .profile-container {
+      display: flex;
+      align-items: center;
+      gap: 20px; /* 调整图片和文字之间的间距 */
+    }
     .logo {
-      display: block;
-      margin-bottom: 20px;
+      width: 15%; /* 图片宽度 */
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .introduction {
+      flex: 1; /* 让介绍文本占据剩余空间 */
     }
     .pdf-container {
       width: 100%;
@@ -37,10 +46,13 @@
 </head>
 <body>
 
-  <!-- 如果你有 logo.jpg，确保它也在根目录 -->
-  <img src="logo.jpg" alt="Tao Liangce" class="logo" width="15%" />
-
-  <p>I am Tao Liangce, a software engineer.</p>
+  <!-- 创建一个容器来包含图片和介绍 -->
+  <div class="profile-container">
+    <img src="logo.jpg" alt="Tao Liangce" class="logo" />
+    <div class="introduction">
+      <p>I am Tao Liangce, a software engineer.</p>
+    </div>
+  </div>
 
   <!-- 嵌入 PDF（请确保 resume.pdf 已上传到仓库） -->
   <div class="pdf-container">
