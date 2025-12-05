@@ -5,7 +5,7 @@
 <img src="logo.jpg" alt="网站Logo" width="15%" />
 
 
-I am Tao Liangce, a student. I am a Java programmer, front-end web development engineer.
+I am Tao Liangce, a software engineer.
 
 
 This is my [CV](https://r.easycv.cn/taoliangce).
