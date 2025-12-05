@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tao Liangce - CV</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+    .logo {
+      display: block;
+      margin-bottom: 20px;
+    }
+    .pdf-container {
+      width: 100%;
+      height: 90vh;
+      min-height: 600px;
+      border: 1px solid #ddd;
+      margin-top: 20px;
+    }
+    .download-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .download-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 如果你有 logo.jpg，确保它也在根目录 -->
+  <img src="logo.jpg" alt="Tao Liangce" class="logo" width="15%" />
+
+  <p>I am Tao Liangce, a software engineer.</p>
+
+  <!-- 嵌入 PDF（请确保 resume.pdf 已上传到仓库） -->
+  <div class="pdf-container">
+    <embed src="resume.pdf" type="application/pdf" width="100%" height="100%" />
+  </div>
+
+  <a href="resume.pdf" download class="download-link">📥 Download my CV (PDF)</a>
+
+</body>
+</html>
