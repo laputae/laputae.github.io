@@ -23,12 +23,16 @@
     }
     .pdf-container {
       width: 100%;
-      height: 90vh;
-      min-height: 600px;
+      /* 这里的 height 设置为 80vh 到 90vh 在移动端体验较好 */
+      height: 80vh;
       border: 1px solid #ddd;
       margin-top: 20px;
+      overflow: hidden;
+      border-radius: 4px;
     }
-    /* 已删除 .download-link 相关样式 */
+    iframe {
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -40,8 +44,27 @@
   </div>
 
   <div class="pdf-container">
-    <embed src="resume.pdf" type="application/pdf" width="100%" height="100%" />
+    <iframe 
+      id="pdf-viewer"
+      src="" 
+      width="100%" 
+      height="100%">
+    </iframe>
   </div>
+
+  <script>
+    // 自动获取当前页面的基础 URL 并拼接 PDF 路径
+    // 这样无论你在本地测试还是部署到 GitHub Pages 都能自动匹配
+    const pdfFileName = 'resume.pdf';
+    const currentUrl = window.location.href.replace('index.html', '');
+    const pdfUrl = currentUrl + pdfFileName;
+    
+    // 使用 Mozilla 官方提供的 viewer 界面（通过 jsDelivr CDN）
+    // 注意：部分极其严格的局域网可能会拦截外部 iframe，但通常 GitHub Pages 环境下运行良好
+    const viewerUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(pdfUrl)}`;
+    
+    document.getElementById('pdf-viewer').src = viewerUrl;
+  </script>
 
 </body>
 </html>
