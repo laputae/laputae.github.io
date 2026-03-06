@@ -10,44 +10,27 @@
       max-width: 900px;
       margin: 40px auto;
       padding: 0 20px;
-      line-height: 1.6;
       color: #333;
       background-color: #fafafa;
     }
-    .introduction { 
-      margin-bottom: 30px; 
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
-    .introduction p {
-      font-size: 1.2rem;
-      font-weight: 500;
-      margin: 0;
-    }
+    .introduction { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
     #pdf-render-container {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
       background: #f0f0f0;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      min-height: 600px;
-      overflow-y: auto;
-      max-height: 90vh;
+      min-height: 500px;
     }
     canvas {
       max-width: 100%;
       height: auto !important;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      background-color: white;
-    }
-    .status-msg {
-      padding: 40px;
-      color: #666;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: white;
     }
   </style>
+  <script src="pdf.js"></script>
 </head>
 <body>
 
@@ -56,36 +39,31 @@
   </div>
 
   <div id="pdf-render-container">
-    <p id="status-text" class="status-msg">正在准备预览简历...</p>
+    <p id="loading-msg" style="padding: 20px;">正在加载简历内容...</p>
   </div>
 
-  <script type="module">
-    // 导入你仓库中的本地模块
-    import * as pdfjsLib from './pdf.mjs';
-
-    // 指定本地 Worker 路径
-    pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.mjs';
+  <script>
+    // 2. 这里的全局变量取决于 PDF.js 的版本，通常在 window 对象下
+    const pdfjsLib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+    
+    // 3. 指定本地 Worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
 
     const url = 'resume.pdf';
     const container = document.getElementById('pdf-render-container');
-    const statusText = document.getElementById('status-text');
+    const msg = document.getElementById('loading-msg');
 
     async function init() {
       try {
         const loadingTask = pdfjsLib.getDocument(url);
         const pdf = await loadingTask.promise;
-        
-        // 隐藏加载提示
-        statusText.style.display = 'none';
+        msg.style.display = 'none';
 
-        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-          const page = await pdf.getPage(pageNum);
-          
-          // 1. 设置渲染比例（高清方案）
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
           const dpr = window.devicePixelRatio || 1;
-          const viewport = page.getViewport({ scale: 2 }); 
+          const viewport = page.getViewport({ scale: 2 });
 
-          // 2. 创建并配置 Canvas
           const canvas = document.createElement('canvas');
           const context = canvas.getContext('2d');
           
@@ -93,26 +71,19 @@
           canvas.width = viewport.width * dpr;
           canvas.style.width = '100%';
           canvas.style.maxWidth = (viewport.width / 2) + 'px';
-          
-          // 3. 将容器插入 DOM（Edge 稳定性优化：先插入再渲染）
+
           container.appendChild(canvas);
 
-          // 4. 执行渲染
           context.scale(dpr, dpr);
-          await page.render({
-            canvasContext: context,
-            viewport: viewport
-          }).promise;
+          await page.render({ canvasContext: context, viewport: viewport }).promise;
         }
       } catch (err) {
-        console.error("渲染失败:", err);
-        statusText.innerHTML = `❌ 简历加载失败: ${err.message}<br>请检查 resume.pdf 是否在根目录。`;
-        statusText.style.display = 'block';
+        msg.innerHTML = "❌ 加载失败: " + err.message;
+        console.error(err);
       }
     }
 
     init();
   </script>
-
 </body>
 </html>
