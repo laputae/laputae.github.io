@@ -11,7 +11,6 @@
       margin: 40px auto;
       padding: 0 20px;
       color: #333;
-      background-color: #fafafa;
     }
     .introduction { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
     #pdf-render-container {
@@ -20,17 +19,17 @@
       flex-direction: column;
       align-items: center;
       gap: 15px;
-      background: #f0f0f0;
+      background: #f9f9f9;
       min-height: 500px;
+      border-radius: 4px;
     }
     canvas {
       max-width: 100%;
       height: auto !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       background: white;
     }
   </style>
-  <script src="pdf.js"></script>
 </head>
 <body>
 
@@ -39,19 +38,18 @@
   </div>
 
   <div id="pdf-render-container">
-    <p id="loading-msg" style="padding: 20px;">正在加载简历内容...</p>
+    <p id="msg" style="padding: 20px;">正在加载简历预览...</p>
   </div>
 
-  <script>
-    // 2. 这里的全局变量取决于 PDF.js 的版本，通常在 window 对象下
-    const pdfjsLib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
-    
-    // 3. 指定本地 Worker
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
+  <script type="module">
+    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.mjs';
 
-    const url = 'resume.pdf';
+    // 设置 Worker 路径（同样使用 CDN）
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.mjs';
+
+    const url = './resume.pdf'; // 确保你的简历文件还在根目录
     const container = document.getElementById('pdf-render-container');
-    const msg = document.getElementById('loading-msg');
+    const msg = document.getElementById('msg');
 
     async function init() {
       try {
@@ -78,7 +76,7 @@
           await page.render({ canvasContext: context, viewport: viewport }).promise;
         }
       } catch (err) {
-        msg.innerHTML = "❌ 加载失败: " + err.message;
+        msg.innerHTML = "❌ 加载失败: " + err.message + "<br>请确认 resume.pdf 是否已上传。";
         console.error(err);
       }
     }
