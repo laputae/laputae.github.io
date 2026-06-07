@@ -26,15 +26,18 @@
       font-size: 18px;
       margin-top: 5px;
     }
+    /* 修改说明框样式：更轻量、更圆润 */
     .instruction {
-      background: #e9f5ff;
-      border-left: 4px solid #0066cc;
-      padding: 15px 20px;
-      border-radius: 0 4px 4px 0;
-      text-align: left;
-      margin: 25px 0;
-      font-size: 16px;
-      line-height: 1.5;
+      /* 调浅背景色，减少视觉干扰 */
+      background: #f0f8ff;
+      border: 1px dashed #0066cc; /* 改为虚线边框，更柔和 */
+      padding: 12px 15px;
+      border-radius: 8px;
+      display: inline-block; /* 收缩容器宽度 */
+      margin: 20px auto; /* 居中 */
+      font-size: 14px; /* 减小字体 */
+      color: #888; /* 文字淡化 */
+      line-height: 1.6;
     }
     .redirect-btn {
       display: inline-block;
@@ -59,8 +62,8 @@
     }
     .note {
       margin-top: 25px;
-      color: #666;
-      font-size: 14px;
+      color: #aaa; /* 底部说明也淡化 */
+      font-size: 13px;
     }
   </style>
 </head>
@@ -70,24 +73,22 @@
     <p class="subtitle">AI Agent 开发工程师</p>
   </div>
   
-  <!-- 添加的说明文字 -->
+  <!-- 修改后的说明文字 -->
   <div class="instruction">
-    <strong>点击跳转到简历页面</strong>
-    <br>您将访问我的最新在线简历（HTML格式）
+    <!-- 使用大号手指图标和箭头组合，形成强视觉引导 -->
+    <span style="font-size: 24px; margin-right: 8px;">👇</span> 
+    <strong style="color: #555; font-size: 15px;">点击下方按钮查看简历</strong>
+    <br>
+    <span style="color: #999;">👉 您的最新在线简历（HTML格式）</span>
   </div>
   
-  <!-- 替换 href 为你的简历页面网址 -->
+  <!-- 请务必替换 href 为你的真实简历网址 -->
   <a href="https://r.easycv.cn/taoliangce" class="redirect-btn">
     查看我的完整简历
   </a>
   
   <p class="note">点击后将在新窗口打开简历页面</p>
 
-  <script>
-    // 可选：5秒后自动跳转（如需禁用请删除此代码块）
-    setTimeout(() => {
-      window.location.href = document.querySelector('.redirect-btn').href;
-    }, 5000);
-  </script>
+  <!-- 5秒自动跳转功能已移除 -->
 </body>
 </html>
