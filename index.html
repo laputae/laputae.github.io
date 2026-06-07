@@ -3,85 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tao Liangce - CV</title>
+  <title>陶良策 - 简历访问</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 30px;
+      text-align: center;
       color: #333;
+      background: #f8f9fa;
     }
-    .introduction { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-    #pdf-render-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      background: #f9f9f9;
-      min-height: 500px;
-      border-radius: 4px;
+    .header {
+      margin-bottom: 30px;
     }
-    canvas {
-      max-width: 100%;
-      height: auto !important;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      background: white;
+    h1 {
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 18px;
+      margin-top: 5px;
+    }
+    .instruction {
+      background: #e9f5ff;
+      border-left: 4px solid #0066cc;
+      padding: 15px 20px;
+      border-radius: 0 4px 4px 0;
+      text-align: left;
+      margin: 25px 0;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .redirect-btn {
+      display: inline-block;
+      padding: 16px 32px;
+      background-color: #0066cc;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+      margin: 10px 0;
+    }
+    .redirect-btn:hover {
+      background-color: #0052a3;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 102, 204, 0.3);
+    }
+    .redirect-btn:active {
+      transform: translateY(0);
+    }
+    .note {
+      margin-top: 25px;
+      color: #666;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-
-  <div class="introduction">
-    <p>陶良策 - AI Agent开发</p>
+  <div class="header">
+    <h1>陶良策</h1>
+    <p class="subtitle">AI Agent 开发工程师</p>
   </div>
-
-  <div id="pdf-render-container">
-    <p id="msg" style="padding: 20px;">正在加载简历预览...</p>
+  
+  <!-- 添加的说明文字 -->
+  <div class="instruction">
+    <strong>点击跳转到简历页面</strong>
+    <br>您将访问我的最新在线简历（HTML格式）
   </div>
+  
+  <!-- 替换 href 为你的简历页面网址 -->
+  <a href="https://r.easycv.cn/taoliangce" class="redirect-btn">
+    查看我的完整简历
+  </a>
+  
+  <p class="note">点击后将在新窗口打开简历页面</p>
 
-  <script type="module">
-    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.mjs';
-
-    // 设置 Worker 路径（同样使用 CDN）
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.mjs';
-
-    const url = './resume.pdf'; // 确保你的简历文件还在根目录
-    const container = document.getElementById('pdf-render-container');
-    const msg = document.getElementById('msg');
-
-    async function init() {
-      try {
-        const loadingTask = pdfjsLib.getDocument(url);
-        const pdf = await loadingTask.promise;
-        msg.style.display = 'none';
-
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const dpr = window.devicePixelRatio || 1;
-          const viewport = page.getViewport({ scale: 2 });
-
-          const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
-          
-          canvas.height = viewport.height * dpr;
-          canvas.width = viewport.width * dpr;
-          canvas.style.width = '100%';
-          canvas.style.maxWidth = (viewport.width / 2) + 'px';
-
-          container.appendChild(canvas);
-
-          context.scale(dpr, dpr);
-          await page.render({ canvasContext: context, viewport: viewport }).promise;
-        }
-      } catch (err) {
-        msg.innerHTML = "❌ 加载失败: " + err.message + "<br>请确认 resume.pdf 是否已上传。";
-        console.error(err);
-      }
-    }
-
-    init();
+  <script>
+    // 可选：5秒后自动跳转（如需禁用请删除此代码块）
+    setTimeout(() => {
+      window.location.href = document.querySelector('.redirect-btn').href;
+    }, 5000);
   </script>
 </body>
 </html>
