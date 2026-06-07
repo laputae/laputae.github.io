@@ -26,19 +26,27 @@
       font-size: 18px;
       margin-top: 5px;
     }
-    /* 修改说明框样式：更轻量、更圆润 */
+
+    /* --- 修改重点在这里 --- */
     .instruction {
-      /* 调浅背景色，减少视觉干扰 */
       background: #f0f8ff;
-      border: 1px dashed #0066cc; /* 改为虚线边框，更柔和 */
-      padding: 12px 15px;
+      border: 1px dashed #0066cc;
+      padding: 15px 20px; /* 稍微增加内边距让呼吸感更好 */
       border-radius: 8px;
-      display: inline-block; /* 收缩容器宽度 */
-      margin: 20px auto; /* 居中 */
-      font-size: 14px; /* 减小字体 */
-      color: #888; /* 文字淡化 */
+
+      /* 核心修改：改为 block 并限制宽度 */
+      display: block;
+      width: fit-content;       /* 宽度随内容自适应，不会撑满全屏 */
+      max-width: 80%;           /* 防止在大屏幕上太宽 */
+      margin: 0 auto 25px auto; /* 上下外边距：上0，下25px(拉开与按钮距离)，左右auto(居中) */
+
+      font-size: 14px;
+      color: #888;
       line-height: 1.6;
+      text-align: left;         /* 保持内部文字左对齐 */
     }
+    /* --------------------- */
+
     .redirect-btn {
       display: inline-block;
       padding: 16px 32px;
@@ -50,7 +58,7 @@
       font-weight: 500;
       transition: all 0.3s;
       box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
-      margin: 10px 0;
+      margin-bottom: 10px;
     }
     .redirect-btn:hover {
       background-color: #0052a3;
@@ -61,8 +69,8 @@
       transform: translateY(0);
     }
     .note {
-      margin-top: 25px;
-      color: #aaa; /* 底部说明也淡化 */
+      margin-top: 25px; /* 增加顶部间距，远离按钮 */
+      color: #aaa;
       font-size: 13px;
     }
   </style>
@@ -72,23 +80,20 @@
     <h1>陶良策</h1>
     <p class="subtitle">AI Agent 开发工程师</p>
   </div>
-  
-  <!-- 修改后的说明文字 -->
+
+  <!-- 说明框 -->
   <div class="instruction">
-    <!-- 使用大号手指图标和箭头组合，形成强视觉引导 -->
-    <span style="font-size: 24px; margin-right: 8px;">👇</span> 
+    <span style="font-size: 20px; margin-right: 5px;">👇</span>
     <strong style="color: #555; font-size: 15px;">点击下方按钮查看简历</strong>
     <br>
-    <span style="color: #999;">👉 您的最新在线简历（HTML格式）</span>
   </div>
-  
-  <!-- 请务必替换 href 为你的真实简历网址 -->
+
+  <!-- 按钮 -->
   <a href="https://r.easycv.cn/taoliangce" class="redirect-btn">
     查看我的完整简历
   </a>
-  
+
   <p class="note">点击后将在新窗口打开简历页面</p>
 
-  <!-- 5秒自动跳转功能已移除 -->
 </body>
 </html>
